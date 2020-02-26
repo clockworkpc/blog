@@ -9,7 +9,7 @@ branches:
 before_install:
   - yes | gem update --system --force
   - gem install bundler
-script:
+install:
   - JEKYLL_ENV=production bundle exec jekyll build --destination site
 deploy:
   repo: clockworkpc/clockworkpc.github.io
