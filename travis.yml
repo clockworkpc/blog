@@ -1,7 +1,6 @@
 language: ruby
   rvm:
-    - 2.5
-    - 2.6
+    - 2.6.5
 cache: bundler
 dist: bionic
 branches:
@@ -20,7 +19,7 @@ deploy:
   email: deploy@travis-ci.org
   name: Deployment Bot
   skip-cleanup: true
-  github-token: $GITHUB_TOKEN
+  github-token: GITHUB_TOKEN
   keep-history: true
   on:
     branch: master
