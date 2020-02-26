@@ -5,3 +5,4 @@ _config.yml
 .jekyll-metadata
 vendor
 .env
+.Gemfile.lock
