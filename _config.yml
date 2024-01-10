@@ -26,18 +26,18 @@ url: "https://clockworkpc.github.io" # the base hostname & protocol for your sit
 twitter_username: clockworkpc
 github_username:  clockworkpc
 
-# baseurl: "" # the subpath of your site, e.g. /blog
-# url: "" # the base hostname & protocol for your site, e.g. http://example.com
-# twitter_username: jekyllrb
-# github_username:  jekyll
-
 # Build settings
+# theme: jekyll-theme-hacker
+# theme: jekyll-dash
 remote_theme: bitbrain/jekyll-dash
-# theme: minima
+# theme: jekyll-theme-hacker
 plugins:
   - jekyll-feed
   - jekyll/tagging
   - jekyll-mermaid
+
+mermaid:
+  src: https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -58,3 +58,34 @@ plugins:
 #   - vendor/cache/
 #   - vendor/gems/
 #   - vendor/ruby/
+
+# required by disqus to display comments
+url: https://your-site-url
+
+# jekyll-paginate
+paginate: 15
+paginate_path: "/blog/page:num/"
+
+# jekyll-tagging (optional)
+tag_permalink_style: pretty
+tag_page_layout: tag_page
+tag_page_dir: tag
+
+dash:
+  date_format: "%b %-d, %Y"
+
+  disqus:
+    shortname: <your-discuss-shortname>
+
+  # generate social links in footer
+  # supported colors: green, red, orange, blue, cyan, pink, teal, yellow, indigo, purple
+  social_links:
+    - url: https://twitter.com/alexandergarber
+      icon: twitter-square
+      color: cyan
+    - url: http://clockworkpc.com.au
+      icon: itch-io
+      color: red
+    - url: https://github.com/clockworkpc
+      icon: github-square
+      color: purple

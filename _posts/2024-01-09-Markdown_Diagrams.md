@@ -54,40 +54,58 @@ $$\begin{array}{c}
 
 \end{array}$$
 
+# mermaid
 
-# mermaid sequence-diagrams
+``` mermaid
+gantt
+    title A Gantt Diagram
+    dateFormat YYYY-MM-DD
+    section Widgets
+        Widget v1 Sprint    :a1, 2024-01-01, 14d
+        Widget v1 Review    :a2, after a1, 7d
+        Widget v2 Sprint    :a3, after a2, 14d
+        Widget v2 Review    :a4, after a3, 7d
+    section Gadgets
+        Gadget v1 Sprint    :b1, 2024-01-01, 14d
+        Gadget v1 Review    :b2, after b1, 7d
+        Gadget v2 Sprint    :b3, after b2, 14d
+        Gadget v2 Review    :b4, after b3, 7d
+```
 
-```mermaid
+# js-sequence-diagrams
+
+``` mermaid
 sequenceDiagram
-    Note over OrderManager: Receive Order for Widgets, Gadgets, Gizmos
-    OrderManager->>Database: Create Order record, status `verified`
-    OrderManager->>GoogleSheet: Append row to `orders`, `verified` = TRUE
+Note over OrderManager: Receive Order for Widgets, Gadgets, Gizmos
 
-    OrderManager->>WidgetFactory: POST req, production order
-    OrderManager->>GadgetFactory: POST req, production order
-    OrderManager->>GizmoFactory: POST req, production order
+OrderManager->>Database: Create Order record, status `verified`
+OrderManager->>GoogleSheet: Append row to `orders`, `verified` = TRUE
 
-    Note over WidgetFactory: Schedule production order
-    Note over GadgetFactory: Schedule production order
-    Note over GizmoFactory: Schedule production order
+OrderManager->>WidgetFactory: POST req, production order
+OrderManager->>GadgetFactory: POST req, production order
+OrderManager->>GizmoFactory: POST req, production order
 
-    WidgetFactory->>OrderManager: POST res, PO received
-    GadgetFactory->>OrderManager: POST res, PO received
-    GizmoFactory->>OrderManager: POST res, PO received
+Note over WidgetFactory: Schedule production order
+Note over GadgetFactory: Schedule production order
+Note over GizmoFactory: Schedule production order
 
-    OrderManager->>Database: Update Order record, status `in_production`
-    OrderManager->>GoogleSheet: Modify row in `orders`, `in_production` = TRUE
+WidgetFactory->>OrderManager: POST res, PO received
+GadgetFactory->>OrderManager: POST res, PO received
+GizmoFactory->>OrderManager: POST res, PO received
 
-    Note over WidgetFactory: Execute production order
-    Note over GadgetFactory: Execute production order
-    Note over GizmoFactory: Execute production order
+OrderManager->>Database: Update Order record, status `in_production`
+OrderManager->>GoogleSheet: Modify row in `orders`, `in_production` = TRUE
 
-    WidgetFactory->>OrderManager: Webhook, order completed
-    GadgetFactory->>OrderManager: Webhook, order completed
-    GizmoFactory->>OrderManager: Webhook, order completed
+Note over WidgetFactory: Execute production order
+Note over GadgetFactory: Execute production order
+Note over GizmoFactory: Execute production order
 
-    OrderManager->>Database: Update Order record, status `completed`
-    OrderManager->>GoogleSheet: Modify row in `orders`, `completed` = TRUE
+WidgetFactory->>OrderManager: Webhook, order completed
+GadgetFactory->>OrderManager: Webhook, order completed
+GizmoFactory->>OrderManager: Webhook, order completed
+
+OrderManager->>Database: Update Order record, status `completed`
+OrderManager->>GoogleSheet: Modify row in `orders`, `completed` = TRUE
 ```
 
 # Flowchart
