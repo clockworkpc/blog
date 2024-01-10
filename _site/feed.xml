@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-01-10T19:36:17+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2024-01-10T19:36:10+02:00</published><updated>2024-01-10T19:36:10+02:00</updated><id>http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2024-01-10T20:18:33+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CPC Blog</title><subtitle>A blog about software by Alexander Yaäkov Garber.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2024-01-10T19:36:10+02:00</published><updated>2024-01-10T19:36:10+02:00</updated><id>http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2024/01/10/welcome-to-jekyll.html"><![CDATA[<p>You’ll find this post in your <code class="language-plaintext highlighter-rouge">_posts</code> directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run <code class="language-plaintext highlighter-rouge">jekyll serve</code>, which launches a web server and auto-regenerates your site when a file is updated.</p>
 
 <p>Jekyll requires blog post files to be named according to the following format:</p>
 
@@ -14,4 +14,642 @@
 <span class="n">print_hi</span><span class="p">(</span><span class="s1">'Tom'</span><span class="p">)</span>
 <span class="c1">#=&gt; prints 'Hi, Tom' to STDOUT.</span></code></pre></figure>
 
-<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry></feed>
+<p>Check out the <a href="https://jekyllrb.com/docs/home">Jekyll docs</a> for more info on how to get the most out of Jekyll. File all bugs/feature requests at <a href="https://github.com/jekyll/jekyll">Jekyll’s GitHub repo</a>. If you have questions, you can ask them on <a href="https://talk.jekyllrb.com/">Jekyll Talk</a>.</p>]]></content><author><name></name></author><category term="jekyll" /><category term="update" /><summary type="html"><![CDATA[You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.]]></summary></entry><entry><title type="html">ERP Simulation Diagram</title><link href="http://localhost:4000/2024/01/09/ERP_Simulation_Diagram.html" rel="alternate" type="text/html" title="ERP Simulation Diagram" /><published>2024-01-09T12:41:57+02:00</published><updated>2024-01-09T12:41:57+02:00</updated><id>http://localhost:4000/2024/01/09/ERP_Simulation_Diagram</id><content type="html" xml:base="http://localhost:4000/2024/01/09/ERP_Simulation_Diagram.html"><![CDATA[<pre><code class="language-mermaid">sequenceDiagram
+Note over OrderManager: Receive Order for Widgets, Gadgets, Gizmos
+
+OrderManager-&gt;&gt;Database: Create Order record, status `verified`
+OrderManager-&gt;&gt;GoogleSheet: Append row to `orders`, `verified` = TRUE
+
+OrderManager-&gt;&gt;WidgetFactory: POST req, production order
+OrderManager-&gt;&gt;GadgetFactory: POST req, production order
+OrderManager-&gt;&gt;GizmoFactory: POST req, production order
+
+Note over WidgetFactory: Schedule production order
+Note over GadgetFactory: Schedule production order
+Note over GizmoFactory: Schedule production order
+
+WidgetFactory-&gt;&gt;OrderManager: POST res, PO received
+GadgetFactory-&gt;&gt;OrderManager: POST res, PO received
+GizmoFactory-&gt;&gt;OrderManager: POST res, PO received
+
+OrderManager-&gt;&gt;Database: Update Order record, status `in_production`
+OrderManager-&gt;&gt;GoogleSheet: Modify row in `orders`, `in_production` = TRUE
+
+Note over WidgetFactory: Execute production order
+Note over GadgetFactory: Execute production order
+Note over GizmoFactory: Execute production order
+
+WidgetFactory-&gt;&gt;OrderManager: Webhook, order completed
+GadgetFactory-&gt;&gt;OrderManager: Webhook, order completed
+GizmoFactory-&gt;&gt;OrderManager: Webhook, order completed
+
+OrderManager-&gt;&gt;Database: Update Order record, status `completed`
+OrderManager-&gt;&gt;GoogleSheet: Modify row in `orders`, `completed` = TRUE
+</code></pre>]]></content><author><name></name></author><category term="markdown" /><category term="erp" /><summary type="html"><![CDATA[``` mermaid sequenceDiagram Note over OrderManager: Receive Order for Widgets, Gadgets, Gizmos]]></summary></entry><entry><title type="html">Markdown Diagrams</title><link href="http://localhost:4000/2024/01/09/Markdown_Diagrams.html" rel="alternate" type="text/html" title="Markdown Diagrams" /><published>2024-01-09T09:27:58+02:00</published><updated>2024-01-09T09:27:58+02:00</updated><id>http://localhost:4000/2024/01/09/Markdown_Diagrams</id><content type="html" xml:base="http://localhost:4000/2024/01/09/Markdown_Diagrams.html"><![CDATA[<h1 id="table-of-contents">Table of contents</h1>
+
+<p>one of of the following:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>${toc}
+[[toc]]
+[toc]
+[[_toc_]]
+</code></pre></div></div>
+<p>${toc}</p>
+
+<h1 id="image-embedding">Image Embedding</h1>
+
+<p>Set size (400x200)</p>
+
+<p><img src="https://user-images.githubusercontent.com/5492542/47603494-28e90000-da1f-11e8-9079-30646e551e7a.gif =400x200" alt="image" /></p>
+
+<p>Dyanmic (100%)</p>
+
+<p><img src="https://user-images.githubusercontent.com/5492542/47603494-28e90000-da1f-11e8-9079-30646e551e7a.gif =100%x" alt="image" /></p>
+
+<h1 id="plantuml">PlantUML</h1>
+
+<p>@startuml
+Bob -&gt; Alice : hello
+@enduml</p>
+
+<p>Or</p>
+
+<pre><code class="language-plantuml">Bob -&gt; Alice : hello
+</code></pre>
+
+<h1 id="katex">KaTeX</h1>
+
+<p>$\sqrt{3x-1}+(1+x)^2$</p>
+
+\[\begin{array}{c}
+
+\nabla \times \vec{\mathbf{B}} -\, \frac1c\, \frac{\partial\vec{\mathbf{E}}}{\partial t} &amp;
+= \frac{4\pi}{c}\vec{\mathbf{j}}    \nabla \cdot \vec{\mathbf{E}} &amp; = 4 \pi \rho \\
+
+\nabla \times \vec{\mathbf{E}}\, +\, \frac1c\, \frac{\partial\vec{\mathbf{B}}}{\partial t} &amp; = \vec{\mathbf{0}} \\
+
+\nabla \cdot \vec{\mathbf{B}} &amp; = 0
+
+\end{array}\]
+
+<h1 id="mermaid-sequence-diagrams">mermaid sequence-diagrams</h1>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    Note over OrderManager: Receive Order for Widgets, Gadgets, Gizmos
+    OrderManager-&gt;&gt;Database: Create Order record, status `verified`
+    OrderManager-&gt;&gt;GoogleSheet: Append row to `orders`, `verified` = TRUE
+
+    OrderManager-&gt;&gt;WidgetFactory: POST req, production order
+    OrderManager-&gt;&gt;GadgetFactory: POST req, production order
+    OrderManager-&gt;&gt;GizmoFactory: POST req, production order
+
+    Note over WidgetFactory: Schedule production order
+    Note over GadgetFactory: Schedule production order
+    Note over GizmoFactory: Schedule production order
+
+    WidgetFactory-&gt;&gt;OrderManager: POST res, PO received
+    GadgetFactory-&gt;&gt;OrderManager: POST res, PO received
+    GizmoFactory-&gt;&gt;OrderManager: POST res, PO received
+
+    OrderManager-&gt;&gt;Database: Update Order record, status `in_production`
+    OrderManager-&gt;&gt;GoogleSheet: Modify row in `orders`, `in_production` = TRUE
+
+    Note over WidgetFactory: Execute production order
+    Note over GadgetFactory: Execute production order
+    Note over GizmoFactory: Execute production order
+
+    WidgetFactory-&gt;&gt;OrderManager: Webhook, order completed
+    GadgetFactory-&gt;&gt;OrderManager: Webhook, order completed
+    GizmoFactory-&gt;&gt;OrderManager: Webhook, order completed
+
+    OrderManager-&gt;&gt;Database: Update Order record, status `completed`
+    OrderManager-&gt;&gt;GoogleSheet: Modify row in `orders`, `completed` = TRUE
+</code></pre>
+
+<h1 id="flowchart">Flowchart</h1>
+
+<pre><code class="language-flowchart">st=&gt;start: Start|past:&gt;http://www.google.com[blank]
+e=&gt;end: End|future:&gt;http://www.google.com
+op1=&gt;operation: My Operation|past
+op2=&gt;operation: Stuff|current
+sub1=&gt;subroutine: My Subroutine|invalid
+cond=&gt;condition: Yes
+or No?|approved:&gt;http://www.google.com
+c2=&gt;condition: Good idea|rejected
+io=&gt;inputoutput: catch something...|future
+
+st-&gt;op1(right)-&gt;cond
+cond(yes, right)-&gt;c2
+cond(no)-&gt;sub1(left)-&gt;op1
+c2(yes)-&gt;io-&gt;e
+c2(no)-&gt;op2-&gt;e
+</code></pre>
+
+<h1 id="dot">dot</h1>
+
+<div class="language-dot highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">digraph</span> <span class="nv">G</span> <span class="p">{</span>
+
+  <span class="k">subgraph</span> <span class="nv">cluster_0</span> <span class="p">{</span>
+    <span class="n">style</span><span class="p">=</span><span class="nv">filled</span><span class="p">;</span>
+    <span class="n">color</span><span class="p">=</span><span class="nv">lightgrey</span><span class="p">;</span>
+    <span class="k">node</span> <span class="o">[</span><span class="n">style</span><span class="p">=</span><span class="nv">filled</span><span class="p">,</span><span class="n">color</span><span class="p">=</span><span class="nv">white</span><span class="o">]</span><span class="p">;</span>
+    <span class="nv">a0</span> <span class="o">-&gt;</span> <span class="nv">a1</span> <span class="o">-&gt;</span> <span class="nv">a2</span> <span class="o">-&gt;</span> <span class="nv">a3</span><span class="p">;</span>
+    <span class="n">label</span> <span class="p">=</span> <span class="s2">"process #1"</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="k">subgraph</span> <span class="nv">cluster_1</span> <span class="p">{</span>
+    <span class="k">node</span> <span class="o">[</span><span class="n">style</span><span class="p">=</span><span class="nv">filled</span><span class="o">]</span><span class="p">;</span>
+    <span class="nv">b0</span> <span class="o">-&gt;</span> <span class="nv">b1</span> <span class="o">-&gt;</span> <span class="nv">b2</span> <span class="o">-&gt;</span> <span class="nv">b3</span><span class="p">;</span>
+    <span class="n">label</span> <span class="p">=</span> <span class="s2">"process #2"</span><span class="p">;</span>
+    <span class="n">color</span><span class="p">=</span><span class="nv">blue</span>
+  <span class="p">}</span>
+  <span class="nv">start</span> <span class="o">-&gt;</span> <span class="nv">a0</span><span class="p">;</span>
+  <span class="nv">start</span> <span class="o">-&gt;</span> <span class="nv">b0</span><span class="p">;</span>
+  <span class="nv">a1</span> <span class="o">-&gt;</span> <span class="nv">b3</span><span class="p">;</span>
+  <span class="nv">b2</span> <span class="o">-&gt;</span> <span class="nv">a3</span><span class="p">;</span>
+  <span class="nv">a3</span> <span class="o">-&gt;</span> <span class="nv">a0</span><span class="p">;</span>
+  <span class="nv">a3</span> <span class="o">-&gt;</span> <span class="nv">end</span><span class="p">;</span>
+  <span class="nv">b3</span> <span class="o">-&gt;</span> <span class="nv">end</span><span class="p">;</span>
+
+  <span class="nv">start</span> <span class="o">[</span><span class="n">shape</span><span class="p">=</span><span class="nv">Mdiamond</span><span class="o">]</span><span class="p">;</span>
+  <span class="nv">end</span> <span class="o">[</span><span class="n">shape</span><span class="p">=</span><span class="nv">Msquare</span><span class="o">]</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<h1 id="chartjs">chart.js</h1>
+
+<pre><code class="language-chart">{
+  "type": "pie",
+  "data": {
+    "labels": [
+      "Red",
+      "Blue",
+      "Yellow"
+    ],
+    "datasets": [
+      {
+        "data": [
+          300,
+          50,
+          100
+        ],
+        "backgroundColor": [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56"
+        ],
+        "hoverBackgroundColor": [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56"
+        ]
+      }
+    ]
+  },
+  "options": {}
+}
+</code></pre>]]></content><author><name></name></author><category term="markdown" /><summary type="html"><![CDATA[Table of contents]]></summary></entry><entry><title type="html">Widgets, Gadgets, Gizmos: Factory Simulation Overview</title><link href="http://localhost:4000/2024/01/09/Widgets_Gadgets_Gizmos_Factory_Simulation_Overview.html" rel="alternate" type="text/html" title="Widgets, Gadgets, Gizmos: Factory Simulation Overview" /><published>2024-01-09T07:50:10+02:00</published><updated>2024-01-09T07:50:10+02:00</updated><id>http://localhost:4000/2024/01/09/Widgets_Gadgets_Gizmos_Factory_Simulation_Overview</id><content type="html" xml:base="http://localhost:4000/2024/01/09/Widgets_Gadgets_Gizmos_Factory_Simulation_Overview.html"><![CDATA[<h2 id="schematic-overview">Schematic Overview</h2>
+
+<p><img src="/assets/backend_devops_portfolio_production_simulation_overview.png" alt="Schematic Overview" /></p>
+
+<p>The simulation of a manufacturing business is composed of the following microservices:</p>
+<ul>
+  <li>Factories</li>
+  <li>Order Manager</li>
+  <li>Customer and Product Manager</li>
+  <li>Central Database</li>
+  <li>Google Sheet for input of <code class="language-plaintext highlighter-rouge">completed_orders</code></li>
+  <li>Google Sheet dashboard of <code class="language-plaintext highlighter-rouge">completed_orders</code></li>
+</ul>
+
+<h2 id="factory-microservices">Factory Microservices</h2>
+
+<p>Each factory microservice is an API server built using Rails, Django, or Node.js.  It has its own local database to which it records the details of production requests.
+Every Product has some attributes inherited from the parent <code class="language-plaintext highlighter-rouge">Product</code> model and some unique attributes.</p>
+
+<h3 id="process-flow">Process Flow</h3>
+
+<ol>
+  <li>Receive an authenticated POST request from the Order Manager microservice, which is a registered user on the Factory microservice, which includes the Order Number and the details of the products for said order.  Examples of production orders:
+    <ul>
+      <li>1 * Widget with default attributes</li>
+      <li>1 * Widget with custom attributes</li>
+      <li>1 * Widget with default attributes, 1 * Widget with custom attributes</li>
+      <li>various quantities of Widgets with differing custom attributes</li>
+    </ul>
+  </li>
+  <li>
+    <p>For each product configuration create a separate record in the local <code class="language-plaintext highlighter-rouge">production_orders</code> table, including <code class="language-plaintext highlighter-rouge">order_number</code>, <code class="language-plaintext highlighter-rouge">quantity</code>, <code class="language-plaintext highlighter-rouge">attributes</code>.</p>
+  </li>
+  <li>
+    <p>Send a POST reply to confirm receipt of production order.</p>
+  </li>
+  <li>
+    <p>Schedule a production job for the proudction order.  I am considering a method of calculating the duration of the job by its complexity, which would be effected by executing a <code class="language-plaintext highlighter-rouge">sleep</code> function with a corresponding value in seconds.  This would simulate longer production times for larger or more complex orders.</p>
+  </li>
+  <li>Upon completion of the production job, send a webhook to the Order Manager microservice.</li>
+</ol>
+
+<h2 id="customer-manager-microservice">Customer Manager Microservice</h2>
+
+<p>A small server responsible for the CRUD of records in the <code class="language-plaintext highlighter-rouge">customers</code> table in the central database.  Via the UI or API, an authorised user can create a new <code class="language-plaintext highlighter-rouge">customer</code>, update or delete it.  The Order Manager microservice queries this microservice for up-to-date details of a customer, which it uses to verify an API order and to populate a drop-down list of current customers in the order form in the UI.</p>
+
+<h2 id="product-management">Product Management</h2>
+
+<p>In this iteration of the manufacturing simulation, there are three <code class="language-plaintext highlighter-rouge">Products</code> only, the manufacture of each being handled by a separate Factory microservice.  The reason for not creating a single Factory that “manufactures” all products, and which would simplify the addition of new products, is to give myself the challenge of creating identical microservices in Rails, Django, and Node.js respectively.</p>
+
+<h2 id="order-management-microservice">Order Management Microservice</h2>
+
+<p>The heart of the simulation is the Order Manager, which queries the Customer Management microservice, sends production requests to the Factory microservices, receives thence the details of completed production orders, updates the central database, and sends the same details to a Google Spreadsheet via the <strong>Google Spreadsheet API</strong>.  It will provide both a UI and an API for manual creation of orders and also generate random orders at regular intervals by means of scheduled Tasks.</p>
+
+<h3 id="process-flow-1">Process Flow</h3>
+
+<h4 id="manual-order">Manual Order</h4>
+
+<ol>
+  <li>Receive a manual order form via POST request from the UI.</li>
+  <li>Schedule a job to generate a production request</li>
+  <li>Send a POST reply to confirm receipt of request.</li>
+  <li>Generate an order for the nominated customer.</li>
+  <li>Save the order details to the database.</li>
+  <li>Transmit the details to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">verified</code></li>
+  <li>Send a production request (POST) to the relevant Factory microservice(s).</li>
+  <li>Receive confirmation of receipt of request from each Factory microservice.</li>
+  <li>Update the status of the order in the databases as <code class="language-plaintext highlighter-rouge">scheduled</code>.</li>
+  <li>When all production requests have been confirmed as scheduled, transmit another line item to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">scheduled</code>.</li>
+  <li>Asynchronously receive a webhook from each Factory and update the order record in the database.</li>
+  <li>When all production requests have been confirmed as complete, transmit another line item to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">complete</code>.</li>
+</ol>
+
+<h4 id="automated-order">Automated Order</h4>
+
+<ol>
+  <li>Execute a scheduled Task (e.g. Rake in Rails) to generate an order for a random customer.</li>
+  <li>Save the order details to the database.</li>
+  <li>Transmit the details to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">verified</code></li>
+  <li>Send a production request (POST) to the relevant Factory microservice(s).</li>
+  <li>Receive confirmation of receipt of request from each Factory microservice.</li>
+  <li>Update the status of the order in the databases as <code class="language-plaintext highlighter-rouge">scheduled</code>.</li>
+  <li>When all production requests have been confirmed as scheduled, transmit another line item to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">scheduled</code>.</li>
+  <li>Asynchronously receive a webhook from each Factory and update the order record in the database.</li>
+  <li>When all production requests have been confirmed as complete, transmit another line item to the <code class="language-plaintext highlighter-rouge">orders</code> Google Sheet with the status <code class="language-plaintext highlighter-rouge">complete</code>.</li>
+</ol>
+
+<h2 id="google-sheet">Google Sheet</h2>
+
+<p>The reason for including a Google Sheet in this simulation is that this is a demonstration of backend and DevOps skills, not front-end skills.  By transmitting the details of orders as they move through the production process simulation to a Google Sheet, not only do I demonstrate third-party API integration, but also utilise the familiar Google Sheet as an easy to build dashboard.  This can also be combined with a Dashboard solution sitting on top of the Google Sheet source data.</p>]]></content><author><name></name></author><category term="erp" /><category term="cloud" /><category term="api" /><category term="microservices" /><category term="rails" /><category term="django" /><category term="nodejs" /><summary type="html"><![CDATA[Schematic Overview]]></summary></entry><entry><title type="html">Woodworking ERP First Thoughts</title><link href="http://localhost:4000/2023/01/05/Woodworking_ERP_First_Thoughts.html" rel="alternate" type="text/html" title="Woodworking ERP First Thoughts" /><published>2023-01-05T15:17:33+02:00</published><updated>2023-01-05T15:17:33+02:00</updated><id>http://localhost:4000/2023/01/05/Woodworking_ERP_First_Thoughts</id><content type="html" xml:base="http://localhost:4000/2023/01/05/Woodworking_ERP_First_Thoughts.html"><![CDATA[<p>I want to build a very simple ERP (Enterprise Resource Planning) tool for my home-based woodworking.</p>
+
+<h2 id="context">Context</h2>
+
+<p>I have a setup at home to work with reclaimed lumber, which suffers from various defects:</p>
+
+<ul>
+  <li>Warping</li>
+  <li>Cupping</li>
+  <li>Bowing</li>
+  <li>Rough edges</li>
+  <li>Rough faces</li>
+  <li>Embedded metal, i.e. nails or screws</li>
+  <li>Dirt, concrete, or old finish</li>
+</ul>
+
+<p>In order to work with this lumber, I need to process each board such that it will satisfy the following conditions:</p>
+
+<ul>
+  <li>Straight, parallel edges</li>
+  <li>Planed, parallel faces</li>
+  <li>Clean surface</li>
+  <li>No embedded metal</li>
+</ul>
+
+<h2 id="specifications">Specifications</h2>
+
+<h3 id="primary-application">Primary Application</h3>
+
+<ol>
+  <li>Keep an inventory of rough, reclaimed lumber.</li>
+  <li>Record the changes in cleaning up and straightening the rough lumber.</li>
+  <li>Record the products that are created from the lumber.</li>
+</ol>
+
+<h3 id="secondary-application">Secondary Application</h3>
+
+<ol>
+  <li>Keep track of machines</li>
+  <li>Keep track of tools, both hand tools and power tools</li>
+  <li>Keep track of consumables, e.g. screws</li>
+</ol>
+
+<h2 id="initial-development">Initial Development</h2>
+
+<p>The central Model is the <code class="language-plaintext highlighter-rouge">Lumber</code>, which contains the following attributes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>uuid</td>
+      <td>string</td>
+      <td>A barcode generated in advance, printed, and applied to each board</td>
+    </tr>
+    <tr>
+      <td>length</td>
+      <td>float</td>
+      <td>Initially the length of the rough board</td>
+    </tr>
+    <tr>
+      <td>width_start, width_end</td>
+      <td>float</td>
+      <td>Width measured at each end,  can differ on a skew board</td>
+    </tr>
+    <tr>
+      <td>thickness_start, thickness_end</td>
+      <td>float</td>
+      <td>Thickness measured at each end, can differ on a tapered board</td>
+    </tr>
+    <tr>
+      <td>wood_type</td>
+      <td>reference</td>
+      <td>Reference to the WoodType model</td>
+    </tr>
+    <tr>
+      <td>straight_edge</td>
+      <td>boolean</td>
+      <td>Whether the straight-edge jig has been used</td>
+    </tr>
+    <tr>
+      <td>parallel_edges</td>
+      <td>boolean</td>
+      <td>Whether the opposite edge has been cut using the straight-edge as a reference</td>
+    </tr>
+    <tr>
+      <td>planed_face</td>
+      <td>boolean</td>
+      <td>Whether the planing jig has been used</td>
+    </tr>
+    <tr>
+      <td>parallel_faces</td>
+      <td>boolean</td>
+      <td>Whether the opposite face has been planed using the planed face as a reference</td>
+    </tr>
+    <tr>
+      <td>square</td>
+      <td>boolean</td>
+      <td>Whether all sides in all directions are square, i.e. whether the board is ready to be used</td>
+    </tr>
+    <tr>
+      <td>timestamps</td>
+      <td>datetime</td>
+      <td>created_at and updated_at</td>
+    </tr>
+    <tr>
+      <td>changelog</td>
+      <td>jsonb</td>
+      <td>A JSON Array of Objects, each one containing all of the above attributes and a timestamp, to allow changes to be tracked</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <code class="language-plaintext highlighter-rouge">Lumber</code> model has the following relationships:</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">belongs_to :barcode</code></li>
+  <li><code class="language-plaintext highlighter-rouge">belongs_to :wood_type</code></li>
+  <li><code class="language-plaintext highlighter-rouge">belongs_to :product, through: :lumber_products</code></li>
+</ul>
+
+<h2 id="workflow">Workflow</h2>
+
+<ol>
+  <li>Generate a mass of Barcode records, where the UUID is translated into a barcode.</li>
+  <li>Print the barcodes, to have on hand.</li>
+  <li>Attach a barcode to each board of reclaimed lumber</li>
+  <li>In the <code class="language-plaintext highlighter-rouge">lumber</code> create form, enter the board’s attributes along with the barcode</li>
+  <li>Use the barcode to bring up the <code class="language-plaintext highlighter-rouge">lumber</code> edit form to update attributes during or after processing.</li>
+</ol>
+
+<p><img src="/assets/woodworking_erp.png" alt="My helpful screenshot" /></p>]]></content><author><name></name></author><category term="database" /><category term="design" /><summary type="html"><![CDATA[I want to build a very simple ERP (Enterprise Resource Planning) tool for my home-based woodworking.]]></summary></entry><entry><title type="html">Arrays in Javascript vs Ruby</title><link href="http://localhost:4000/2022/12/23/Arrays_in_Javascript_vs_Ruby.html" rel="alternate" type="text/html" title="Arrays in Javascript vs Ruby" /><published>2022-12-23T04:42:02+02:00</published><updated>2022-12-23T04:42:02+02:00</updated><id>http://localhost:4000/2022/12/23/Arrays_in_Javascript_vs_Ruby</id><content type="html" xml:base="http://localhost:4000/2022/12/23/Arrays_in_Javascript_vs_Ruby.html"><![CDATA[<h2 id="setup-in-javascript">Setup in Javascript</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">double</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="kd">const</span> <span class="nx">newArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">num</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="nx">double</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">num</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<h2 id="setup-in-ruby">Setup in Ruby</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<span class="n">new_array</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">ary</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="n">double</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+</code></pre></div></div>
+<h2 id="map-in-javascript">map in Javascript</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">mapArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="map-in-ruby">map in Ruby</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<span class="n">map_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="n">num</span> <span class="o">*</span> <span class="mi">2</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="filter-in-javascript">filter in Javascript</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">filterArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">num</span> <span class="o">=&gt;</span> <span class="nx">num</span> <span class="o">&gt;</span> <span class="mi">5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="filterselect-in-ruby">filter/select in Ruby</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<span class="n">select_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">select</span> <span class="p">{</span> <span class="o">|</span><span class="n">num</span><span class="o">|</span> <span class="n">num</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="reduce-in-javascript">reduce in Javascript</h2>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">const</span> <span class="nx">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">];</span>
+<span class="kd">const</span> <span class="nx">reduceArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nf">reduce</span><span class="p">((</span><span class="nx">accumulator</span><span class="p">,</span> <span class="nx">num</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">accumulator</span> <span class="o">+</span> <span class="nx">num</span>
+<span class="p">},</span> <span class="mi">0</span><span class="p">);</span>
+<span class="c1">// 1 + 2 + 10 + 16</span>
+<span class="c1">// 29</span>
+</code></pre></div></div>
+
+<h2 id="reduce-in-ruby">reduce in Ruby</h2>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">array</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">16</span><span class="p">]</span>
+<span class="n">reduce_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">accumulator</span><span class="p">,</span> <span class="n">num</span><span class="o">|</span> <span class="n">accumulator</span> <span class="o">+</span> <span class="n">num</span> <span class="p">}</span>
+<span class="n">reduce_array</span> <span class="o">=</span> <span class="n">array</span><span class="p">.</span><span class="nf">reduce</span><span class="p">(:</span><span class="o">+</span><span class="p">)</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="js" /><category term="array" /><category term="map" /><category term="filter" /><category term="reduce" /><summary type="html"><![CDATA[Setup in Javascript]]></summary></entry><entry><title type="html">JS Event Listener Is A Callback Function</title><link href="http://localhost:4000/2022/12/22/JS_Event_Listener_Is_A_Callback_Function.html" rel="alternate" type="text/html" title="JS Event Listener Is A Callback Function" /><published>2022-12-22T15:09:58+02:00</published><updated>2022-12-22T15:09:58+02:00</updated><id>http://localhost:4000/2022/12/22/JS_Event_Listener_Is_A_Callback_Function</id><content type="html" xml:base="http://localhost:4000/2022/12/22/JS_Event_Listener_Is_A_Callback_Function.html"><![CDATA[<p>Event listener syntax :</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">button</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">addListAfterClick</span><span class="p">);</span>
+<span class="nx">input</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">keypress</span><span class="dl">"</span><span class="p">,</span> <span class="nx">addListAfterKeypress</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Rather than:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">button</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">addListAfterClick</span><span class="p">());</span>
+<span class="nx">input</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">keypress</span><span class="dl">"</span><span class="p">,</span> <span class="nf">addListAfterKeypress</span><span class="p">(</span><span class="nx">event</span><span class="p">));</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="js" /><category term="study" /><category term="callback" /><summary type="html"><![CDATA[Event listener syntax :]]></summary></entry><entry><title type="html">To Do List JS</title><link href="http://localhost:4000/2022/12/22/To_Do_List_JS.html" rel="alternate" type="text/html" title="To Do List JS" /><published>2022-12-22T15:05:39+02:00</published><updated>2022-12-22T15:05:39+02:00</updated><id>http://localhost:4000/2022/12/22/To_Do_List_JS</id><content type="html" xml:base="http://localhost:4000/2022/12/22/To_Do_List_JS.html"><![CDATA[<p><code class="language-plaintext highlighter-rouge">index.html</code>:</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Javascript Holder<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Shopping List<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>Get it done today<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>No excuses<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">"text"</span> <span class="na">value=</span><span class="s">""</span> <span class="na">name=</span><span class="s">"user_input"</span> <span class="na">id=</span><span class="s">"user_input"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"button1"</span><span class="nt">&gt;</span>Add to list<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Notebook<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Pencil<span class="nt">&lt;/li&gt;</span>
+      <span class="nt">&lt;li&gt;</span>Highlighter<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"script.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">script.js</code>:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">buttons</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="nx">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">input</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">user_input</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">ul</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">ul</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">lis</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">listItems</span> <span class="o">=</span> <span class="p">[];</span>
+
+<span class="nx">lis</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nf">function </span><span class="p">(</span><span class="nx">li</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">listItems</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">li</span><span class="p">.</span><span class="nx">textContent</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nf">isNotBlank</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">keyPressEnter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span> <span class="o">===</span> <span class="mi">13</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">elementType</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">event</span><span class="p">.</span><span class="nx">path</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">tagName</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isButtonEvent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">elementType</span><span class="p">()</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">button</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isInputEvent</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">elementType</span><span class="p">()</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">input</span><span class="dl">"</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isNewListItem</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">included</span> <span class="o">=</span> <span class="nx">listItems</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">included</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">alert</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> is already on the list!</span><span class="dl">"</span><span class="p">);</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nf">focus</span><span class="p">();</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="o">!</span><span class="nx">listItems</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isValidlyEntered</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">isNotBlank</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nf">isNewListItem</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isValidButtonInput</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">isButtonEvent</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nf">isValidlyEntered</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isValidKeyboardInput</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">isInputEvent</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nf">keyPressEnter</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nf">isValidlyEntered</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">isValidInput</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nf">isValidButtonInput</span><span class="p">()</span> <span class="o">||</span> <span class="nf">isValidKeyboardInput</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">createListElement</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">li</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">li</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">createTextNode</span><span class="p">(</span><span class="nx">input</span><span class="p">.</span><span class="nx">value</span><span class="p">));</span>
+  <span class="nx">ul</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="nx">input</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="dl">""</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">addToList</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nf">isValidInput</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nf">createListElement</span><span class="p">();</span>
+    <span class="nx">input</span><span class="p">.</span><span class="nf">focus</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">button</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">addToList</span><span class="p">);</span>
+<span class="nx">input</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">keypress</span><span class="dl">"</span><span class="p">,</span> <span class="nx">addToList</span><span class="p">);</span>
+<span class="nx">input</span><span class="p">.</span><span class="nf">focus</span><span class="p">();</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="js" /><category term="study" /><summary type="html"><![CDATA[index.html:]]></summary></entry><entry><title type="html">Javascript Calculator</title><link href="http://localhost:4000/2022/12/22/Javascript_Calculator.html" rel="alternate" type="text/html" title="Javascript Calculator" /><published>2022-12-22T07:40:40+02:00</published><updated>2022-12-22T07:40:40+02:00</updated><id>http://localhost:4000/2022/12/22/Javascript_Calculator</id><content type="html" xml:base="http://localhost:4000/2022/12/22/Javascript_Calculator.html"><![CDATA[<p>I decided to go a little further with the calculator exercise in Lecture 122.  The obvious, defective solution is IF ELSE, but I prefer to take advantage of the fact that the parameter (string or symbol) that describe the arithmetic function.  So calc1 is the beginner’s way of doing things, whereas calc2 is the kind of code that I look for:</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">subtract</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">-</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">multiply</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">*</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">divide</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">a</span> <span class="o">/</span> <span class="nx">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">invokeMe</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="k">typeof</span> <span class="nb">window</span><span class="p">[</span><span class="nx">string</span><span class="p">]</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">function</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">window</span><span class="p">[</span><span class="nx">string</span><span class="p">].</span><span class="nf">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">array</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">calc1</span><span class="p">(</span><span class="nx">action</span><span class="p">,</span> <span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">add</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">subtract</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">subtract</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">multiply</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">multiply</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if </span><span class="p">(</span><span class="nx">action</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">divide</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">divide</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="dl">"</span><span class="s2">Something went wrong</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">calc2</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">array</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">actions</span> <span class="o">=</span> <span class="p">[</span><span class="dl">"</span><span class="s2">add</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">subtract</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">multiply</span><span class="dl">"</span><span class="p">,</span> <span class="dl">"</span><span class="s2">divide</span><span class="dl">"</span><span class="p">];</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nx">actions</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">string</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nf">invokeMe</span><span class="p">(</span><span class="nx">string</span><span class="p">,</span> <span class="nx">array</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">not a valid action</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>The key is the function invokeMe which uses a string to call a function (or invoke a method) WITHOUT USING eval.</p>]]></content><author><name></name></author><category term="js" /><category term="study" /><summary type="html"><![CDATA[I decided to go a little further with the calculator exercise in Lecture 122. The obvious, defective solution is IF ELSE, but I prefer to take advantage of the fact that the parameter (string or symbol) that describe the arithmetic function. So calc1 is the beginner’s way of doing things, whereas calc2 is the kind of code that I look for:]]></summary></entry><entry><title type="html">Check Method Definition in Ruby</title><link href="http://localhost:4000/2021/05/04/Check_Method_Definition_in_Ruby.html" rel="alternate" type="text/html" title="Check Method Definition in Ruby" /><published>2021-05-04T16:04:28+03:00</published><updated>2021-05-04T16:04:28+03:00</updated><id>http://localhost:4000/2021/05/04/Check_Method_Definition_in_Ruby</id><content type="html" xml:base="http://localhost:4000/2021/05/04/Check_Method_Definition_in_Ruby.html"><![CDATA[<p>This works for a method defined in a gem too.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">m</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">method</span><span class="p">(</span><span class="ss">:invite!</span><span class="p">)</span>
+<span class="n">m</span><span class="p">.</span><span class="nf">source_location</span>
+</code></pre></div></div>]]></content><author><name></name></author><category term="ruby" /><category term="rails" /><summary type="html"><![CDATA[This works for a method defined in a gem too.]]></summary></entry></feed>
